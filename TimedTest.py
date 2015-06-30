@@ -57,145 +57,143 @@ from CustomExceptions import AssertionFailedError
 from TestDecorator import TestDecorator
 
 try:
-	bool = True
+    bool = True
 except:
-	True = 1
-	False = 0
-	
+    True = 1
+    False = 0
+
+
 class TimedTest(TestDecorator):
+    def __init__(self, test, maxElapsedTime, waitForCompletion=True):
+        """
+         * Constructs a <code>TimedTest</code> to decorate the
+         * specified test with the specified maximum elapsed time.
+         *
+         * @param test Test to decorate.
+         * @param maxElapsedTime Maximum elapsed time (ms).
+         * @param waitForCompletion <code>true</code> (default) to
+         *        indicate that the <code>TimedTest</code> should wait
+         *        for its decorated test to run to completion and then
+         *        fail if the maximum elapsed time was exceeded;
+         *        <code>false</code> to indicate that the
+         *        <code>TimedTest</code> should immediately signal
+         *        a failure when the maximum elapsed time is exceeded.
+        """
+        TestDecorator.__init__(self, test)
+        self.maxElapsedTime = maxElapsedTime
+        self.waitForCompletion = waitForCompletion
+        self.maxElapsedTimeExceeded = False
+        self.isQuiet = False
+        self.test = test
 
-	def __init__(self, test, maxElapsedTime, waitForCompletion=True):
-		"""
-		 * Constructs a <code>TimedTest</code> to decorate the 
-		 * specified test with the specified maximum elapsed time.
-		 * 
-		 * @param test Test to decorate.
-		 * @param maxElapsedTime Maximum elapsed time (ms).
-		 * @param waitForCompletion <code>true</code> (default) to 
-		 *        indicate that the <code>TimedTest</code> should wait 
-		 *        for its decorated test to run to completion and then 
-		 *        fail if the maximum elapsed time was exceeded; 
-		 *        <code>false</code> to indicate that the 
-		 *        <code>TimedTest</code> should immediately signal 
-		 *        a failure when the maximum elapsed time is exceeded.
-		"""
-		TestDecorator.__init__(self, test)
-		self.maxElapsedTime = maxElapsedTime
-		self.waitForCompletion = waitForCompletion
-		self.maxElapsedTimeExceeded = False
-		self.isQuiet = False
-		self.test = test
-	
-	def setQuiet(self):
-		"""
-		 * Disables the output of the test's elapsed time.
-		"""
-		self.isQuiet = True
-	
+    def setQuiet(self):
+        """
+         * Disables the output of the test's elapsed time.
+        """
+        self.isQuiet = True
 
-	def countTestCases(self):
-		return TestDecorator.countTestCases(self)
-	
-	def outOfTime(self):
-		"""
-		 * Determines whether the maximum elapsed time of
-		 * the test was exceeded.
-		 *
-		 * @return <code>true</code> if the max elapsed time
-		 *         was exceeded; <code>false</code> otherwise.
-		"""
-		return self.maxElapsedTimeExceeded
-	
+    def countTestCases(self):
+        return TestDecorator.countTestCases(self)
 
-	def run(self, result):
-		"""
-		// TODO: May require a strategy pattern
-		//       if other algorithms emerge.
-		"""
-		if self.waitForCompletion:
-			self.runUntilTestCompletion(result)
-		else:
-			self.runUntilTimeExpires(result)
+    def outOfTime(self):
+        """
+         * Determines whether the maximum elapsed time of
+         * the test was exceeded.
+         *
+         * @return <code>true</code> if the max elapsed time
+         *         was exceeded; <code>false</code> otherwise.
+        """
+        return self.maxElapsedTimeExceeded
 
-	def __call__(self, result):
-		self.run(result)
-		
-	def runUntilTestCompletion(self, result):
-		"""
-		 * Runs the test until test completion and then signals
-		 * a failure if the maximum elapsed time was exceeded.
-		 *
-		 * @param result Test result.
-		"""
+    def run(self, result):
+        """
+        // TODO: May require a strategy pattern
+        //       if other algorithms emerge.
+        """
+        if self.waitForCompletion:
+            self.runUntilTestCompletion(result)
+        else:
+            self.runUntilTimeExpires(result)
 
-		beginTime = time.time()
-		TestDecorator.run(self, result)
+    def __call__(self, result):
+        self.run(result)
 
-		elapsedTime = self.getElapsedTime(beginTime)
-		self.printElapsedTime(elapsedTime)
-		if elapsedTime > self.maxElapsedTime:
-			self.maxElapsedTimeExceeded = True
-			result.addFailure(self.getTest(),
-				(AssertionFailedError, AssertionFailedError("Maximum elapsed time exceeded!" +
-				" Expected " + str(self.maxElapsedTime) + " sec., but was " +
-				str(elapsedTime) + " sec."), None))
-			#result.endTest(self.getTest())
-			result.stop()
-	
-	def runUntilTimeExpires(self, result):
-		"""
-		 * Runs the test and immediately signals a failure 
-		 * when the maximum elapsed time is exceeded.
-		 *
-		 * @param result Test result.
-		"""
-		runnable = Runnable(self, result)
-		t = Thread(group=None, target=runnable)
+    def runUntilTestCompletion(self, result):
+        """
+         * Runs the test until test completion and then signals
+         * a failure if the maximum elapsed time was exceeded.
+         *
+         * @param result Test result.
+        """
 
-		beginTime = time.time()
-		
-		t.start()
+        beginTime = time.time()
+        TestDecorator.run(self, result)
 
-		try:
-			t.join(self.maxElapsedTime)
-		except:
-			pass
+        elapsedTime = self.getElapsedTime(beginTime)
+        self.printElapsedTime(elapsedTime)
+        if elapsedTime > self.maxElapsedTime:
+            self.maxElapsedTimeExceeded = True
+            result.addFailure(self.getTest(),
+                              (AssertionFailedError, AssertionFailedError("Maximum elapsed time exceeded!" +
+                                                                          " Expected " + str(
+                                  self.maxElapsedTime) + " sec., but was " +
+                                                                          str(elapsedTime) + " sec."), None))
+            # result.endTest(self.getTest())
+            result.stop()
 
-		printElapsedTime(self.getElapsedTime(beginTime))
-	
-		if t.isAlive():
-			self.maxElapsedTimeExceeded = True
-			result.addFailure(self.getTest(),
-				(AssertionFailedError, 
-				AssertionFailedError("Maximum elapsed time (" + str(self.maxElapsedTime) + 
-				" sec.) exceeded!"), None))
-			#result.endTest(self.getTest())
-			result.stop()
+    def runUntilTimeExpires(self, result):
+        """
+         * Runs the test and immediately signals a failure
+         * when the maximum elapsed time is exceeded.
+         *
+         * @param result Test result.
+        """
+        runnable = Runnable(self, result)
+        t = Thread(group=None, target=runnable)
 
-	def getElapsedTime(self, beginTime):
-		endTime = time.time()
-		return (endTime - beginTime)
-	
-	def printElapsedTime(self, elapsedTime):
-		if not self.isQuiet:
-			sys.stdout.write(str(self) + ": " + str(elapsedTime) + " sec.\n")
-			sys.stdout.flush()
-		
-	def __str__(self):
-		if self.waitForCompletion:
-			return "TimedTest (WAITING): " + str(self.test) #str(TestDecorator(self))
-		else:
-			return "TimedTest (NON-WAITING): " + str(self.test) #str(TestDecorator(self))
+        beginTime = time.time()
+
+        t.start()
+
+        try:
+            t.join(self.maxElapsedTime)
+        except:
+            pass
+
+        self.printElapsedTime(self.getElapsedTime(beginTime))
+
+        if t.isAlive():
+            self.maxElapsedTimeExceeded = True
+            result.addFailure(self.getTest(),
+                              (AssertionFailedError,
+                               AssertionFailedError("Maximum elapsed time (" + str(self.maxElapsedTime) +
+                                                    " sec.) exceeded!"), None))
+            # result.endTest(self.getTest())
+            result.stop()
+
+    def getElapsedTime(self, beginTime):
+        endTime = time.time()
+        return (endTime - beginTime)
+
+    def printElapsedTime(self, elapsedTime):
+        if not self.isQuiet:
+            sys.stdout.write(str(self) + ": " + str(elapsedTime) + " sec.\n")
+            sys.stdout.flush()
+
+    def __str__(self):
+        if self.waitForCompletion:
+            return "TimedTest (WAITING): " + str(self.test)  # str(TestDecorator(self))
+        else:
+            return "TimedTest (NON-WAITING): " + str(self.test)  # str(TestDecorator(self))
+
 
 class Runnable:
-	
-	def __init__(self, timed_test, result):
-		self.timed_test = timed_test
-		self.result = result
-		
-	def __call__(self):
-		TestDecorator.run(timed_test, result)
-		
-		# IBM's JVM prefers this instead:
-		# run(result);
-		
+    def __init__(self, timed_test, result):
+        self.timed_test = timed_test
+        self.result = result
+
+    def __call__(self):
+        TestDecorator.run(self.timed_test, self.result)
+
+    # IBM's JVM prefers this instead:
+    # run(result);
