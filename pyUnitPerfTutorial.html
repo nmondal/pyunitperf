@@ -1,0 +1,907 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./PyUnitPerfTutorial_files/filelist.xml">
+<title>Python Test Frameworks</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Grig Gheorghiu</o:Author>
+  <o:LastAuthor>Grig Gheorghiu</o:LastAuthor>
+  <o:Revision>4</o:Revision>
+  <o:TotalTime>25</o:TotalTime>
+  <o:LastPrinted>2004-12-13T20:42:00Z</o:LastPrinted>
+  <o:Created>2004-12-29T00:30:00Z</o:Created>
+  <o:LastSaved>2004-12-29T00:35:00Z</o:LastSaved>
+  <o:Pages>4</o:Pages>
+  <o:Words>1355</o:Words>
+  <o:Characters>7726</o:Characters>
+  <o:Lines>64</o:Lines>
+  <o:Paragraphs>15</o:Paragraphs>
+  <o:CharactersWithSpaces>9488</o:CharactersWithSpaces>
+  <o:Version>9.2720</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Compatibility>
+   <w:SelectEntireFieldWithStartOrEnd/>
+   <w:UseWord2002TableStyleRules/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-font-kerning:0pt;
+	font-weight:bold;}
+h3
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:13.0pt;
+	font-family:Arial;
+	font-weight:bold;}
+p.MsoTitle, li.MsoTitle, div.MsoTitle
+	{margin:0in;
+	margin-bottom:.0001pt;
+	text-align:center;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	font-weight:bold;}
+p.MsoBodyText, li.MsoBodyText, div.MsoBodyText
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent, li.MsoBodyTextIndent, div.MsoBodyTextIndent
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.75in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoSubtitle, li.MsoSubtitle, div.MsoSubtitle
+	{margin:0in;
+	margin-bottom:.0001pt;
+	text-align:center;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{margin-right:0in;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+pre
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Courier New";
+	mso-bidi-font-family:"Times New Roman";}
+tt
+	{mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:"Courier New";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";}
+span.testsummaryresultspass
+	{mso-style-name:"test_summary_results pass";}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:70740359;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1381134244 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l1
+	{mso-list-id:160313460;
+	mso-list-template-ids:739828736;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.75in;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2
+	{mso-list-id:250819970;
+	mso-list-type:hybrid;
+	mso-list-template-ids:12900810 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:39.0pt;
+	mso-level-number-position:left;
+	margin-left:39.0pt;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l3
+	{mso-list-id:406652352;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-234694508 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l4
+	{mso-list-id:505874341;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1323858652 67698689 67698691 67698689 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l4:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l4:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:.75in;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l4:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:1.25in;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l5
+	{mso-list-id:572811077;
+	mso-list-type:hybrid;
+	mso-list-template-ids:127838192 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l5:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l6
+	{mso-list-id:600840916;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1036937770 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l6:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l7
+	{mso-list-id:611018111;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1750330020 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l7:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l8
+	{mso-list-id:633945179;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-2076421488 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l8:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l9
+	{mso-list-id:659118979;
+	mso-list-template-ids:-377615472;}
+@list l9:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l10
+	{mso-list-id:664355797;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1418007122 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l10:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l11
+	{mso-list-id:678198475;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1620129598 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l11:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l12
+	{mso-list-id:863447951;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-2048506432 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l12:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l13
+	{mso-list-id:890918636;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1077509444 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l13:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:39.0pt;
+	mso-level-number-position:left;
+	margin-left:39.0pt;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l14
+	{mso-list-id:897129217;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1334519090 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l14:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l15
+	{mso-list-id:920018415;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1081280480 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l15:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l16
+	{mso-list-id:921842361;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-429884878 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l16:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l17
+	{mso-list-id:926302146;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-741466194 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l17:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l18
+	{mso-list-id:1144539185;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1898182222 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l18:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l19
+	{mso-list-id:1190796585;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1528684818 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l19:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l19:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l20
+	{mso-list-id:1298103921;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1400031486 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l20:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l21
+	{mso-list-id:1310987004;
+	mso-list-type:hybrid;
+	mso-list-template-ids:283551190 1845760538 -1174249560 592902358 -1072258778 -1715941318 -765821088 414849452 632060744 -201841262;}
+@list l21:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l22
+	{mso-list-id:1361707291;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1209939552 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l22:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l23
+	{mso-list-id:1436750431;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-2030698028 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l23:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l24
+	{mso-list-id:1474175464;
+	mso-list-type:hybrid;
+	mso-list-template-ids:96223720 -992466004 -517841964 1288720378 -2120435634 -32632344 1983039012 -571183750 1652967684 1888387368;}
+@list l24:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l25
+	{mso-list-id:1541670514;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-2079948372 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l25:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l26
+	{mso-list-id:1556432597;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1442591450 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l26:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l26:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.25in;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.25in;
+	font-family:"Courier New";
+	mso-bidi-font-family:"Times New Roman";}
+@list l27
+	{mso-list-id:1673223032;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-978139802 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l27:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l28
+	{mso-list-id:1715231948;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1850855672 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l28:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l29
+	{mso-list-id:1740204368;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1181547638 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l29:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l30
+	{mso-list-id:1771897064;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-869359520 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l30:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l31
+	{mso-list-id:1935551489;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1699307752 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l31:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l32
+	{mso-list-id:2036271288;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-778547938 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l32:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l33
+	{mso-list-id:2067951122;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1208376370 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l33:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">  </w:LatentStyles>
+</xml><![endif]-->
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<p class=MsoTitle><span style='font-size:14.0pt;mso-bidi-font-size:12.0pt'>pyUnitPerf
+Tutorial<o:p></o:p></span></p>
+
+<p class=MsoTitle>&nbsp;</p>
+
+<p class=MsoSubtitle>Author: Grig Gheorghiu</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal style='tab-stops:.5in'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h3 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Performance
+testing with pyUnitPerf </h3>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>If
+you are familiar with <a href="http://www.clarkware.com/">Mike Clark's</a> <a
+href="http://www.clarkware.com/software/JUnitPerf.html">JUnitPerf</a> framework,
+then you may be interested in knowing that I have released a Python port:
+pyUnitPerf. </p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>pyUnitPerf
+tests are meant to transparently add performance testing capabilities to
+existing pyUnit test suites. The pyUnitPerf framework introduces 2 new types of
+tests:</p>
+
+<ul type=disc>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l21 level1 lfo78;tab-stops:list .5in'>TimedTest: runs an existing
+     pyUnit test case by imposing a limit to the time it takes to run the test</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l21 level1 lfo78;tab-stops:list .5in'>LoadTest: runs an existing
+     pyUnit test case by simulating concurrent users and iterations</li>
+</ul>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Let's
+look at a simple example adapted from the samples provided with JUnitPerf.<br>
+<br>
+Assume you have the following pyUnit test case in a file called
+ExampleTestCase.py:</p>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<pre>from unittest import TestCase, TestSuite, TextTestRunner, makeSuite<br>
+import time<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>class ExampleTestCase(TestCase):<br style='mso-special-character:
+line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">��� </span>def __init__(self, name):<br>
+<span style="mso-spacerun: yes">������� </span>TestCase.__init__(self, name)<br>
+<br>
+<span style="mso-spacerun: yes">��� </span>def testOneSecondResponse(self):<br>
+<span style="mso-spacerun: yes">������� </span>time.sleep(1)<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">��� </span>def suite(self):<br>
+<span style="mso-spacerun: yes">������� </span>return makeSuite(self.__class__)<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></pre><pre>if __name__ == &quot;__main__&quot;:<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">��� </span>example = ExampleTestCase(&quot;testOneSecondResponse&quot;)<br>
+<span style="mso-spacerun: yes">��� </span>runner = TextTestRunner()</pre>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><br>
+Admitedly this is a contrived example, since the testOneSecondResponse method
+simply sleeps for 1 second and does not actually test anything, but it serves
+to illustrate the pyUnitPerf functionality.<br>
+<br>
+Assume you want to create a timed test that waits for the completion of the
+ExampleTestCase.testOneSecondResponse method and then fails if the elapsed time
+exceeded 1 second. With pyUnitPerf, all you need to do is write the following
+code in a file called ExampleTimedTest.py:</p>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<pre>from unittest import TestSuite, TextTestRunner<br>
+from ExampleTestCase import ExampleTestCase<br>
+from LoadTest import LoadTest<br>
+from TimedTest import TimedTest<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>class ExampleTimedTest:<br style='mso-special-character:
+line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">��� </span>def __init__(self):<br>
+<span style="mso-spacerun: yes">������� </span>self.toleranceInSec = 0.05<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">��� </span>def suite(self):<br>
+<span style="mso-spacerun: yes">������� </span>s = TestSuite()<br>
+<span style="mso-spacerun: yes">������� </span>s.addTest(self.make1SecondResponseTimedTest())<br>
+<span style="mso-spacerun: yes">������� </span>return s<br style='mso-special-character:
+line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">��� </span>def make1SecondResponseTimedTest(self):<br>
+<span style="mso-spacerun: yes">������� </span>&quot;&quot;&quot;<br>
+<span style="mso-spacerun: yes">������� </span>Decorates a one second response time test as a<br>
+<span style="mso-spacerun: yes">������� </span>timed test with a maximum elapsed time of 1 second<br>
+<span style="mso-spacerun: yes">������� </span>&quot;&quot;&quot;<br>
+<span style="mso-spacerun: yes">������� </span>maxElapsedTimeInSec = 1 + self.toleranceInSec<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">������� </span>testCase = ExampleTestCase(&quot;testOneSecondResponse&quot;)<br>
+<span style="mso-spacerun: yes">������� </span>timedTest = TimedTest(testCase, maxElapsedTimeInSec)<br>
+<span style="mso-spacerun: yes">������� </span>return timedTest<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>if __name__ == &quot;__main__&quot;:<br>
+<span style="mso-spacerun: yes">��� </span>TextTestRunner(verbosity=2).run(ExampleTimedTest().suite())</pre>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><br>
+The suite() method constructs a TestSuite object and adds to it the test object
+returned by the make1SecondResponseTimedTest method. This method instantiates
+an ExampleTestCase object, passing it the method name to be tested:
+testOneSecondResponse. We then pass the testCase object to a TimedTest object,
+together with the desired maximum time to wait for the completion of the test
+(to which we add a 50 msec. tolerance to account for time potentially spent
+setting up and tearing down the test case). In the __main__ section of the
+module, we simply call the pyUnit TextTestRunner, passing it the suite.<br>
+<br>
+If you run: python ExampleTimedTest.py at a command prompt, you will get the
+following output:</p>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<pre>testOneSecondResponse (ExampleTestCase.ExampleTestCase) ... ok<br>
+TimedTest (WAITING): testOneSecondResponse (ExampleTestCase.ExampleTestCase): 1.0 sec.<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>----------------------------------------------------------------------<br>
+Ran 1 test in 1.000s<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>OK</pre>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><br>
+Now let's make the test fail by requiring the timed test to finish in 0.9
+seconds. To do this, simply change </p>
+
+<pre>maxElapsedTimeInSec = 1 + self.toleranceInSec</pre>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>to
+</p>
+
+<pre>maxElapsedTimeInSec = 0.9 + self.toleranceInSec</pre>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Running
+python ExampleTimedTest.py now results in the following output:</p>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<pre>testOneSecondResponse (ExampleTestCase.ExampleTestCase) ... ok<br>
+TimedTest (WAITING): testOneSecondResponse (ExampleTestCase.ExampleTestCase): 1.<br>
+0 sec.<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>FAIL<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>======================================================================<br>
+FAIL: testOneSecondResponse (ExampleTestCase.ExampleTestCase)<br>
+----------------------------------------------------------------------<br>
+AssertionFailedError: Maximum elapsed time exceeded! Expected 0.95 sec., but was<br>
+1.0 sec.<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>----------------------------------------------------------------------<br>
+Ran 1 test in 1.000s<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>FAILED (failures=1)</pre>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><br>
+Note that the test result for the pyUnit test case (ExampleTestCase.testOneSecondResponse)
+is still marked as OK, but the test result for the Timed Test is marked as
+FAILED, since the time it took was longer than the specified maximum time of
+0.96 sec.<br>
+<br>
+Let's look at an example of a LoadTest. The following code can be saved in a
+file called ExampleLoadTest.py:</p>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<pre>from unittest import TestSuite, TextTestRunner<br>
+from ExampleTestCase import ExampleTestCase<br>
+from LoadTest import LoadTest<br>
+from TimedTest import TimedTest<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>class ExampleLoadTest:<br style='mso-special-character:
+line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">��� </span>def __init__(self):<br>
+<span style="mso-spacerun: yes">������� </span>self.toleranceInSec = 0.05<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">��� </span>def suite(self):<br>
+<span style="mso-spacerun: yes">������� </span>s = TestSuite()<br>
+<span style="mso-spacerun: yes">������� </span>s.addTest(self.make1SecondResponseSingleUserLoadTest())<br>
+<span style="mso-spacerun: yes">������� </span>s.addTest(self.make1SecondResponseMultipleUserLoadTest())<br>
+<span style="mso-spacerun: yes">������� </span>s.addTest(self.make1SecondResponse1UserLoadIterationTest())<br>
+<span style="mso-spacerun: yes">������� </span>return s<br style='mso-special-character:
+line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">��� </span>def make1SecondResponseSingleUserLoadTest(self):<br>
+<span style="mso-spacerun: yes">������� </span>&quot;&quot;&quot;<br>
+<span style="mso-spacerun: yes">������� </span>Decorates a one second response time test as a single user<br>
+<span style="mso-spacerun: yes">������� </span>load test with a maximum elapsed time of 1 second<br>
+<span style="mso-spacerun: yes">�</span><span style="mso-spacerun: yes">������ </span>and a 0 second delay between users.<br>
+<span style="mso-spacerun: yes">������� </span>&quot;&quot;&quot;<br>
+<span style="mso-spacerun: yes">������� </span>users = 1<br>
+<span style="mso-spacerun: yes">������� </span>maxElapsedTimeInSec = 1 + self.toleranceInSec<br>
+<br>
+<span style="mso-spacerun: yes">������� </span>testCase = ExampleTestCase(&quot;testOneSecondResponse&quot;)<br>
+<span style="mso-spacerun: yes">������� </span>loadTest = LoadTest(testCase, users)<br>
+<span style="mso-spacerun: yes">������� </span>timedTest = TimedTest(loadTest, maxElapsedTimeInSec)<br>
+<span style="mso-spacerun: yes">������� </span>return timedTest<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">��� </span>def make1SecondResponseMultipleUserLoadTest(self):<br>
+<span style="mso-spacerun: yes">������� </span>&quot;&quot;&quot;<br>
+<span style="mso-spacerun: yes">������� </span>Decorates a one second response time test as a multiple-user<br>
+<span style="mso-spacerun: yes">������� </span>load test with a maximum elapsed time of 1.5<br>
+<span style="mso-spacerun: yes">������� </span>seconds and a 0 second delay between users.<br>
+<span style="mso-spacerun: yes">������� </span>&quot;&quot;&quot;<br>
+<span style="mso-spacerun: yes">������� </span>users = 10<br>
+<span style="mso-spacerun: yes">������� </span>maxElapsedTimeInSec = 1.5 + self.toleranceInSec<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">������� </span>testCase = ExampleTestCase(&quot;testOneSecondResponse&quot;)<br>
+<span style="mso-spacerun: yes">������� </span>loadTest = LoadTest(testCase, users)<br>
+<span style="mso-spacerun: yes">������� </span>timedTest = TimedTest(loadTest, maxElapsedTimeInSec)<br>
+<span style="mso-spacerun: yes">������� </span>return timedTest<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">��� </span>def make1SecondResponse1UserLoadIterationTest(self):<br>
+<span style="mso-spacerun: yes">������� </span>&quot;&quot;&quot;<br>
+<span style="mso-spacerun: yes">������� </span>Decorates a one second response time test as a single user<br>
+<span style="mso-spacerun: yes">������� </span>load test with 10 iterations per user, a maximum<br>
+<span style="mso-spacerun: yes">������� </span>elapsed time of 10 seconds, and a 0 second delay<br>
+<span style="mso-spacerun: yes">������� </span>between users.<br>
+<span style="mso-spacerun: yes">������� </span>&quot;&quot;&quot;<br>
+<span style="mso-spacerun: yes">�</span><span style="mso-spacerun: yes">������ </span>users = 1<br>
+<span style="mso-spacerun: yes">������� </span>iterations = 10<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre><span style="mso-spacerun: yes">������� </span>maxElapsedTimeInSec = 10 + self.toleranceInSec<br>
+<span style="mso-spacerun: yes">������� </span>testCase = ExampleTestCase(&quot;testOneSecondResponse&quot;);<br>
+<span style="mso-spacerun: yes">������� </span>loadTest = LoadTest(testCase, users, iterations)<br>
+<span style="mso-spacerun: yes">������� </span>timedTest = TimedTest(loadTest, maxElapsedTimeInSec)<br>
+<span style="mso-spacerun: yes">������� </span>return timedTest<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>if __name__ == &quot;__main__&quot;:<br>
+<span style="mso-spacerun: yes">��� </span>TextTestRunner(verbosity=1).run(ExampleLoadTest().suite())</pre>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><br>
+The 3 methods defined in ExampleLoadTest cover some of the most commonly used
+load test scenarios. See the doc strings at the beginning of each method for
+more details. Running python ExampleLoadTest.py generates this output:</p>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<pre>.TimedTest (WAITING): LoadTest (NON-ATOMIC): ThreadedTest: testOneSecondResponse<br>
+(ExampleTestCase.ExampleTestCase): 1.03099989891 sec.<br>
+..........TimedTest (WAITING): LoadTest (NON-ATOMIC): ThreadedTest: testOneSecondResponse (ExampleTestCase.ExampleTestCase): 1.0150001049 sec.<br>
+..........TimedTest (WAITING): LoadTest (NON-ATOMIC): ThreadedTest: testOneSecondResponse (ExampleTestCase.ExampleTestCase)(repeated): 10.0 sec.<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>----------------------------------------------------------------------<br>
+Ran 21 tests in 12.046s<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></pre><pre>OK</pre>
+
+<p class=MsoNormal style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><br>
+This time all the tests passed. Note that the multiple user load test
+(make1SecondResponseMultipleUserLoadTest) runs the individual test cases in
+parallel, each test case in its own thread, and thus the overall time is only
+slighly longer than 1 second. The multiple iteration test
+(make1SecondResponse1UserLoadIterationTest) runs the 10 iterations of the test
+case sequentially, and thus the overall time is 10 seconds.<br>
+<br>
+We can make some of the tests fail by increasing the value of
+maxElapsedTimeInSec, similar to what we did for the TimedTest.<br>
+<br>
+Why should you use pyUnitPerf? Mike Clark makes a great case for using
+JunitPerf on his Web site. To summarize, you use pyUnitPerf when you have an
+existing suite of pyUnit tests that verify the correctness of your code, and
+you want to isolate potential performance issues with your code.<br>
+<br>
+The fact that the pyUnitPerf test suites are completely independent from the
+pyUnit tests helps you in scheduling different run times for the 2 types of tests:</p>
+
+<ul type=disc>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l24 level1 lfo81;tab-stops:list .5in'>you want to run the pyUnit
+     tests very often, since they (should) run fast</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l24 level1 lfo81;tab-stops:list .5in'>you want to run the
+     pyUnitPerf tests less frequently, when trying to verify that an identified
+     bottleneck has been eliminated (potential bottlenecks can be pinpointed via
+     profiling for example); performance tests tend to take a longer time to
+     run, so they could be scheduled for example during a nightly smoke test
+     run</li>
+</ul>
+
+</div>
+
+</body>
+
+</html>
