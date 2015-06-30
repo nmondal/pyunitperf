@@ -64,7 +64,7 @@ except:
 
 
 class TimedTest(TestDecorator):
-    def __init__(self, test, maxElapsedTime, waitForCompletion=True):
+    def __init__(self, test, maxElapsedTime, percentile=90, waitForCompletion=True):
         """
          * Constructs a <code>TimedTest</code> to decorate the
          * specified test with the specified maximum elapsed time.
@@ -81,6 +81,7 @@ class TimedTest(TestDecorator):
         """
         TestDecorator.__init__(self, test)
         self.maxElapsedTime = maxElapsedTime
+        self.percentile = percentile
         self.waitForCompletion = waitForCompletion
         self.maxElapsedTimeExceeded = False
         self.isQuiet = False
