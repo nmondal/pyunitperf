@@ -27,7 +27,7 @@ class CallContainer:
         pass
 
 
-class TestCaseWithParameter(TestCase):
+class TestCaseWithParameters(TestCase):
 
     def __init__(self, method, *args):
         TestCase.__init__(self, "test")
@@ -42,6 +42,14 @@ class TestCaseWithParameter(TestCase):
     def test(self):
         self.call_container()
 
+    @staticmethod
+    def load_test_case( method, max_time, users=10, iterations=3,  *args):
+        testCase = TestCaseWithParameters( method, *args)
+        loadTest = LoadTest(testCase, users, iterations)
+        timedTest = TimedTest(loadTest, max_time)
+        return timedTest
+        pass
+
 
 
 class ExampleLoadTestWithParameters :
@@ -55,29 +63,10 @@ class ExampleLoadTestWithParameters :
     def method2(self, a,b):
         print("a+b = " + str(a + b) )
 
-    def makeMethod1Test(self):
-        """
-         * Decorates a one second response time test as a one
-         * user load test with 10 iterations per user, a maximum
-         * elapsed time of 10 seconds, and a 0 second delay
-         * between users.
-         *
-         * @see testOneSecondResponseOneUserLoadRepeatedTest
-         * @return Test.
-        """
-
-        users = 10
-        iterations = 2
-        maxElapsedTimeInSec = 10 + self.toleranceInSec
-        testCase = TestCaseWithParameter( self.method1, "A1", "B1")
-        loadTest = LoadTest(testCase, users, iterations)
-        timedTest = TimedTest(loadTest, maxElapsedTimeInSec)
-
-        return timedTest
-
     def suite(self):
         s = TestSuite()
-        s.addTest(self.makeMethod1Test())
+        s.addTest( TestCaseWithParameters.load_test_case( self.method1, 10.05,
+                                                          10, 2, "A1" , "B1" ))
         return s
 
 
