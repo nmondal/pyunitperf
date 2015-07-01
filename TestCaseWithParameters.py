@@ -42,6 +42,11 @@ class TestCaseWithParameters(TestCase):
     def test(self):
         self.call_container()
 
+
+    def __str__(self):
+      return   str ( self.call_container.method.__name__ ) + "->" +  str( self.call_container.args )
+
+
     @staticmethod
     def load_test_case( method, max_time, users=10, iterations=3,  *args):
         testCase = TestCaseWithParameters( method, *args)
